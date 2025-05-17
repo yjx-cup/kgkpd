@@ -1,0 +1,17 @@
+matplotlib==3.9.4
+numpy==1.26.3
+opencv-python==4.11.0.86
+pandas==2.2.3
+Pillow==9.4.0
+pycwr==0.3.6
+rich==14.0.0
+scipy==1.13.1
+seaborn==0.13.2
+six==1.17.0
+tensorboard
+tensorboard-data-server
+timm==1.0.7
+torch
+torchaudio
+torchvision
+tqdm==4.67.1
