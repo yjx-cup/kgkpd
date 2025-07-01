@@ -1,5 +1,5 @@
 ## Welcome to use the KGKPD model.
-
+(The code will soon be open - sourced, stay tuned.)
 ### Description
 
 `train.py` is used to train the KGKPD model for VOC dataset.
