@@ -9,22 +9,23 @@ from torch.utils.data.dataset import Dataset
 
 from utils.utils import cvtColor, preprocess_input
 
-def draw_gaussian(heatmap, center, radius, hight, withd,k=1):
+def draw_gaussian(heatmap, center, radius, hight, withd, k=1):
     diameter = 2 * radius + 1
 
     x, y = int(center[0]), int(center[1])
 
     height, width = heatmap.shape[0:2]
     # gaussian = gaussian2D((diameter, diameter), sigma=diameter / 6)
-    gaussian = gaussian2D_WH((diameter, diameter), W=withd, H=hight, sigma=diameter / 6)
+    gaussian = gaussian2D_WH((int(hight * 0.54) * 2 + 1, int(withd * 0.54) * 2 + 1), W=withd, H=hight)
 
-    left, right = min(x, radius), min(width - x, radius + 1)
-    top, bottom = min(y, radius), min(height - y, radius + 1)
+    left, right = min(x, int(withd * 0.54)), min(width - x, int(withd * 0.54) + 1)
+    top, bottom = min(y, int(hight * 0.54)), min(height - y, int(hight * 0.54) + 1)
 
     masked_heatmap = heatmap[y - top:y + bottom, x - left:x + right]
-    masked_gaussian = gaussian[radius - top:radius + bottom, radius - left:radius + right]
+    masked_gaussian = gaussian[int(hight * 0.54) - top:int(hight * 0.54) + bottom,
+                          int(withd * 0.54) - left:int(withd * 0.54) + right]
     if min(masked_gaussian.shape) > 0 and min(masked_heatmap.shape) > 0:  # TODO debug
-        np.maximum(masked_heatmap, masked_gaussian * k, out=masked_heatmap)
+        np.maximum(masked_heatmap, masked_gaussian, out=masked_heatmap)
     return heatmap
 
 def gaussian2D(shape, sigma=1):
